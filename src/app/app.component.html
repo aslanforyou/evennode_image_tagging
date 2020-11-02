@@ -1,0 +1,38 @@
+<div class="main_container">
+  <div class="header">
+    {{title}}
+  </div>
+  <div class="board_container">
+    <div class="controls_container">
+      <div class="url_input">
+        <label for="url">
+          Add image to the board
+        </label>
+        <input id="url" [disabled]="!selectedBoard" [(ngModel)]="imageUrl"/>
+      </div>
+      <button class="add_image_btn" [disabled]="!selectedBoard" (click)="addImageToBoard()">Add</button>
+      <button class="tagging_btn" [disabled]="imagesToTagCount() === 0" (click)="runTagging()">Run Tagging Api</button>
+      <div class="board_selector">
+        <label for="selector">
+          Select an existing board
+        </label>
+        <select id="selector" [disabled]="!boards || boards.length === 0" (change)="selectBoard($event.target.value)">
+          <option *ngIf="!boards || boards.length == 0">create new board</option>
+          <option *ngFor="let board of boards" [value]="board._id">{{board.name}}</option>
+        </select>
+      </div>
+      <button class="create_board_btn" (click)="createBoardDialog()">Create a new board</button>
+    </div>
+    <div class="gallery" *ngIf="imageArray && imageArray.length > 0">
+      <div class="image_container" *ngFor="let image of imageArray">
+        <img src="{{image.url}}" [title]="image.tags || 'Run tagging'">
+        <span *ngIf="image && image.fewTags">{{image.fewTags}}</span>
+      </div>
+    </div>
+    <div class="message" *ngIf="!hasImagesToDisplay()">No uploaded images yet</div>
+    <div class="bottom_container" *ngIf="imagesToSave()">
+      <button class="dismiss_btn" (click)="dismissChanges()">Dismiss Changes</button>
+      <button class="save_btn" (click)="saveBoard()">Save Board</button>
+    </div>
+  </div>
+</div>
