@@ -1,4 +1,4 @@
-# Live Demo (until evennode trila expires at december)
+# Live Demo (until evennode trial expires at december)
 http://tagging-app.eu-4.evennode.com/
 
 to clear all Collections in db, just send
